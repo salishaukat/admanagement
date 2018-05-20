@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Advertisement</h2>
+  {{random_ad.adText}}
+  <br>
+  {{random_ad.adUrl}}
+  <br>
+  {{random_ad.category_id.categoryName}}
+  <br>
+
+  <h2>Top 10 User Advertisement</h2>
+  <table>
+      <thead>
+      <tr><td>Ad</td><td>Url</td><td>Category</td><td>Displayed</td></tr>
+      </thead>
+      <tbody>
+      {% for advertisement in top_ads_records_by_user %}
+      <tr><td>{{advertisement.adText}}</td><td>{{advertisement.adUrl}}</td><td>{{advertisement.category_id.categoryName}}</td><td>{{advertisement.display_count}}</td></tr>
+      {% endfor %}
+      </tbody>
+  </table>
+
+  <h2>Top 10 Advertisement</h2>
+  <table>
+      <thead>
+      <tr><td>Ad</td><td>Url</td><td>Category</td><td>Displayed</td></tr>
+      </thead>
+      <tbody>
+      {% for advertisement in top_ads_records %}
+      <tr><td>{{advertisement.adText}}</td><td>{{advertisement.adUrl}}</td><td>{{advertisement.category_id.categoryName}}</td><td>{{advertisement.display_count}}</td></tr>
+      {% endfor %}
+      </tbody>
+  </table>
+
+
+
+  <h2>Top 10 Advertisement By Categories</h2>
+  <table>
+      <thead>
+      <tr><td>Category</td><td>Displayed</td></tr>
+      </thead>
+      <tbody>
+      {% for advertisement in top_categories %}
+      <tr><td>{{advertisement.category_id__categoryName}}</td><td>{{advertisement.sum_displayed}}</td></tr>
+      {% endfor %}
+      </tbody>
+  </table>
+
+
+{% endblock %}
