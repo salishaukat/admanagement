@@ -25,25 +25,25 @@ def signup(request):
 
 
 @login_required
-def index(request):
+def add_advertisement(request):
     form = AdForm(request.POST)
     if form.is_valid():
         obj=form.save(commit=False)
         obj.createdby = request.user
         obj.save()
         return redirect('dashboard')
-    return render(request, 'index.html', {'form': form})
+    return render(request, 'add_advertisement.html', {'form': form})
 
 
 @login_required
-def dashboard(request):
+def index(request):
     top_ads_records = Ad.objects.order_by('-display_count')[:10]
     top_ads_records_by_user = Ad.objects.order_by('-display_count').filter(createdby=request.user.id)[:10]
     count = Ad.objects.count()
     random_ad = Ad.objects.all()[randint(0, count - 1)]
     random_ad.display_count = random_ad.display_count + 1
     random_ad.save()
-    top_categories = Ad.objects.values('category_id__categoryName').annotate(Count('pk'),sum_displayed=Sum('display_count')).order_by('-sum_displayed')
+    top_categories = Ad.objects.values('category_id__categoryName').annotate(Count('pk'),sum_displayed=Sum('display_count')).order_by('-sum_displayed')[:5]
 
     return render(request, 'dashboard.html', {'top_ads_records': top_ads_records,'top_ads_records_by_user': top_ads_records_by_user,'random_ad':random_ad,'top_categories':top_categories})
 
