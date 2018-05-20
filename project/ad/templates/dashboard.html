@@ -1,12 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
   <h2>Advertisement</h2>
-  {{random_ad.adText}}
-  <br>
-  {{random_ad.adUrl}}
-  <br>
-  {{random_ad.category_id.categoryName}}
-  <br>
+  <a href="{{random_ad.adUrl}}">{{random_ad.adText}}</a>
+
 
   <h2>Top 10 User Advertisement</h2>
   <table>
